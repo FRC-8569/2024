@@ -22,13 +22,11 @@ public class Robot extends TimedRobot {
   private CANSparkMax m_motor2;
   private CANSparkMax m_motor3;
   private CANSparkMax m_motor4;
-  private RelativeEncoder m_encoder1;
-  private RelativeEncoder m_encoder2;
-  private RelativeEncoder m_encoder3;
-  private RelativeEncoder m_encoder4;
 
-  private double position1;
-  private double speed1;
+  private CANSparkMax m_motor5;
+  private RelativeEncoder m_encoder5;
+  private double position5;
+  private double speed5;
 
   @Override
   public void robotInit() {
@@ -36,22 +34,14 @@ public class Robot extends TimedRobot {
     m_motor2 = new CANSparkMax(2, MotorType.kBrushless);
     m_motor3 = new CANSparkMax(3, MotorType.kBrushless);
     m_motor4 = new CANSparkMax(4, MotorType.kBrushless);
+    m_motor5 = new CANSparkMax(5, MotorType.kBrushless);
 
-    m_motor1.restoreFactoryDefaults();
-    m_motor2.restoreFactoryDefaults();
-    m_motor3.restoreFactoryDefaults();
-    m_motor4.restoreFactoryDefaults();
+    m_motor5.restoreFactoryDefaults();
 
-    m_encoder1 = m_motor1.getEncoder();
-    m_encoder2 = m_motor2.getEncoder();
-    m_encoder3 = m_motor3.getEncoder();
-    m_encoder4 = m_motor4.getEncoder();
+    m_encoder5 = m_motor5.getEncoder();
 
     if (true) {
-      m_encoder1.setPosition(0);
-      m_encoder2.setPosition(0);
-      m_encoder3.setPosition(0);
-      m_encoder4.setPosition(0);
+      m_encoder5.setPosition(0);
     }
 
     m_left = new MotorControllerGroup(m_motor1, m_motor2);
@@ -66,10 +56,10 @@ public class Robot extends TimedRobot {
     double turnSpeed = 0.5 * joystick.getRawAxis(0);
     double driveSpeed = 0.7 * joystick.getRawAxis(5);
 
-    position1 = Math.round(m_encoder1.getPosition() * 1000) / 1000;
-    speed1 = Math.round(m_encoder1.getVelocity() * 1000) / 1000;
+    position5 = Math.round(m_encoder5.getPosition() * 1000) / 1000;
+    speed5 = Math.round(m_encoder5.getVelocity() * 1000) / 1000;
 
     m_drive.arcadeDrive(turnSpeed, driveSpeed);
-    System.out.println("position: " + position1 + ", speed: " + speed1);
+    System.out.println("position: " + position5 + ", speed: " + speed5);
   }
 }
