@@ -25,8 +25,6 @@ public class Robot extends TimedRobot {
 
   private CANSparkMax m_motor5;
   private RelativeEncoder m_encoder5;
-  private double position5;
-  private double speed5;
 
   @Override
   public void robotInit() {
@@ -37,12 +35,8 @@ public class Robot extends TimedRobot {
     m_motor5 = new CANSparkMax(5, MotorType.kBrushless);
 
     m_motor5.restoreFactoryDefaults();
-
     m_encoder5 = m_motor5.getEncoder();
-
-    if (true) {
-      m_encoder5.setPosition(0);
-    }
+    m_encoder5.setPosition(0);
 
     m_left = new MotorControllerGroup(m_motor1, m_motor2);
     m_right = new MotorControllerGroup(m_motor3, m_motor4);
@@ -55,11 +49,19 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     double turnSpeed = 0.5 * joystick.getRawAxis(0);
     double driveSpeed = 0.7 * joystick.getRawAxis(5);
+    double position5 = m_encoder5.getPosition();
+    double speedMotor5 = m_encoder5.getVelocity();
 
-    position5 = Math.round(m_encoder5.getPosition() * 1000) / 1000;
-    speed5 = Math.round(m_encoder5.getVelocity() * 1000) / 1000;
+    if (joystick.getRawButton(1)) {
+      m_motor5.set(0.5);
+    } else if (joystick.getRawButton(2)) {
+      m_motor5.set(-0.5);
+    } else {
+      m_motor5.set(0);
+    }
 
     m_drive.arcadeDrive(turnSpeed, driveSpeed);
-    System.out.println("position: " + position5 + ", speed: " + speed5);
+
+    System.out.println("position: " + position5 + ", speed: " + speedMotor5);
   }
 }
