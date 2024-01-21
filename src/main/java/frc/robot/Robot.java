@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot {
 
@@ -63,5 +64,7 @@ public class Robot extends TimedRobot {
     m_drive.arcadeDrive(turnSpeed, driveSpeed);
 
     System.out.println("position: " + position5 + ", speed: " + speedMotor5);
+    SmartDashboard.putNumber("position5", position5);
+    SmartDashboard.putNumber("speed", speedMotor5);
   }
 }
