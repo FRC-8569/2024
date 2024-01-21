@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.RelativeEncoder;
 
 public class Robot extends TimedRobot {
 
@@ -21,6 +22,13 @@ public class Robot extends TimedRobot {
   private CANSparkMax m_motor2;
   private CANSparkMax m_motor3;
   private CANSparkMax m_motor4;
+  private RelativeEncoder m_encoder1;
+  private RelativeEncoder m_encoder2;
+  private RelativeEncoder m_encoder3;
+  private RelativeEncoder m_encoder4;
+
+  private double position1;
+  private double speed1;
 
   @Override
   public void robotInit() {
@@ -28,6 +36,23 @@ public class Robot extends TimedRobot {
     m_motor2 = new CANSparkMax(2, MotorType.kBrushless);
     m_motor3 = new CANSparkMax(3, MotorType.kBrushless);
     m_motor4 = new CANSparkMax(4, MotorType.kBrushless);
+
+    m_motor1.restoreFactoryDefaults();
+    m_motor2.restoreFactoryDefaults();
+    m_motor3.restoreFactoryDefaults();
+    m_motor4.restoreFactoryDefaults();
+
+    m_encoder1 = m_motor1.getEncoder();
+    m_encoder2 = m_motor2.getEncoder();
+    m_encoder3 = m_motor3.getEncoder();
+    m_encoder4 = m_motor4.getEncoder();
+
+    if (true) {
+      m_encoder1.setPosition(0);
+      m_encoder2.setPosition(0);
+      m_encoder3.setPosition(0);
+      m_encoder4.setPosition(0);
+    }
 
     m_left = new MotorControllerGroup(m_motor1, m_motor2);
     m_right = new MotorControllerGroup(m_motor3, m_motor4);
@@ -41,6 +66,10 @@ public class Robot extends TimedRobot {
     double turnSpeed = 0.5 * joystick.getRawAxis(0);
     double driveSpeed = 0.7 * joystick.getRawAxis(5);
 
+    position1 = Math.round(m_encoder1.getPosition() * 1000) / 1000;
+    speed1 = Math.round(m_encoder1.getVelocity() * 1000) / 1000;
+
     m_drive.arcadeDrive(turnSpeed, driveSpeed);
+    System.out.println("position: " + position1 + ", speed: " + speed1);
   }
 }
