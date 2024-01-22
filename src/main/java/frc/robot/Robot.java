@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkAbsoluteEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot {
@@ -48,23 +49,24 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    double turnSpeed = 0.5 * joystick.getRawAxis(0);
-    double driveSpeed = 0.7 * joystick.getRawAxis(5);
+    double turnSpeed = 0.3 * joystick.getRawAxis(0);
+    double driveSpeed = 0.5 * joystick.getRawAxis(5);
     double position5 = m_encoder5.getPosition();
     double speedMotor5 = m_encoder5.getVelocity();
 
     if (joystick.getRawButton(1)) {
-      m_motor5.set(0.5);
+      m_motor5.set(0.3);
     } else if (joystick.getRawButton(2)) {
-      m_motor5.set(-0.5);
+      m_motor5.set(-0.3);
     } else {
       m_motor5.set(0);
     }
 
     m_drive.arcadeDrive(turnSpeed, driveSpeed);
 
-    System.out.println("position: " + position5 + ", speed: " + speedMotor5);
-    SmartDashboard.putNumber("position5", position5);
-    SmartDashboard.putNumber("speed", speedMotor5);
+    SmartDashboard.putNumber("turnSpeed", turnSpeed);
+    SmartDashboard.putNumber("driveSpeed", driveSpeed);
+    SmartDashboard.putNumber("intakePos", position5);
+    SmartDashboard.putNumber("intakeSpd", speedMotor5);
   }
 }
