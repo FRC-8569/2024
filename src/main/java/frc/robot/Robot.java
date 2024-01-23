@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -36,8 +36,8 @@ public class Robot extends TimedRobot {
     motor3 = new CANSparkMax(3, MotorType.kBrushless);
     motor4 = new CANSparkMax(4, MotorType.kBrushless);
     motor5 = new CANSparkMax(5, MotorType.kBrushless);
-    motor6 = new CANSparkMax(5, MotorType.kBrushless);
-    motor7 = new CANSparkMax(5, MotorType.kBrushless);
+    motor6 = new CANSparkMax(6, MotorType.kBrushless);
+    motor7 = new CANSparkMax(7, MotorType.kBrushless);
 
     encoder5 = motor5.getEncoder();
     encoder6 = motor6.getEncoder();
