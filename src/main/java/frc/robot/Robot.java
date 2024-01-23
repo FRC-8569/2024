@@ -12,6 +12,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Robot extends TimedRobot {
   private CANSparkMax motor1;
@@ -28,6 +30,7 @@ public class Robot extends TimedRobot {
   private MotorControllerGroup left;
   private DifferentialDrive drive;
   private Joystick joystick;
+  private NetworkTable limelight = NetworkTableInstance.getDefault().getTable("limelight-front");
 
   @Override
   public void robotInit() {
@@ -63,6 +66,10 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     double turnSpeed = 0.3 * joystick.getRawAxis(0);
     double driveSpeed = 0.5 * joystick.getRawAxis(5);
+
+    double tx = limelight.getEntry("tx").getDouble(0.0);
+    double ty = limelight.getEntry("ty").getDouble(0.0);
+    double ta = limelight.getEntry("ta").getDouble(0.0);
 
     double motorPos5 = encoder5.getPosition();
     double motorSpd5 = encoder5.getVelocity();
@@ -105,5 +112,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("motor6Spd", motorSpd6);
     SmartDashboard.putNumber("motor7Pos", motorPos7);
     SmartDashboard.putNumber("motor7Spd", motorSpd7);
+    SmartDashboard.putNumber("limelight-x", tx);
+    SmartDashboard.putNumber("limelight-y", ty);
+    SmartDashboard.putNumber("limelight-a", ta);
   }
 }
