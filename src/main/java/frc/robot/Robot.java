@@ -71,12 +71,28 @@ public class Robot extends TimedRobot {
     double motorPos7 = encoder7.getPosition();
     double motorSpd7 = encoder7.getVelocity();
 
-    if (joystick.getRawButton(1)) {
+    if (joystick.getRawButton(0)) {
       motor5.set(0.3);
-    } else if (joystick.getRawButton(2)) {
+    } else if (joystick.getRawButton(1)) {
       motor5.set(-0.3);
     } else {
       motor5.set(0);
+    }
+
+    if (joystick.getRawButton(2)) {
+      motor6.set(0.3);
+    } else if (joystick.getRawButton(3)) {
+      motor6.set(-0.3);
+    } else {
+      motor6.set(0);
+    }
+
+    if (joystick.getRawButton(4)) {
+      motor7.set(0.3);
+    } else if (joystick.getRawButton(5)) {
+      motor7.set(-0.3);
+    } else {
+      motor7.set(0);
     }
 
     drive.arcadeDrive(turnSpeed, driveSpeed);
