@@ -33,8 +33,8 @@ public class Robot extends TimedRobot {
     motor2 = new CANSparkMax(2, MotorType.kBrushless);
     motor3 = new CANSparkMax(3, MotorType.kBrushless);
     motor4 = new CANSparkMax(4, MotorType.kBrushless);
-    motor5 = new CANSparkMax(5, MotorType.kBrushed);
-    motor6 = new CANSparkMax(3, MotorType.kBrushed);
+    motor5 = new CANSparkMax(5, MotorType.kBrushless);
+    motor6 = new CANSparkMax(6, MotorType.kBrushless);
 
     encoder5 = motor5.getEncoder();
     encoder6 = motor6.getEncoder();
