@@ -78,10 +78,10 @@ public class Robot extends TimedRobot {
       motor6.set(0);
     }
 
-    if (joystick.getRawButton(4)) {
+    if (joystick.getRawButton(5)) {
       motor5.set(0.3);
       motor6.set(-0.3);
-    } else if (joystick.getRawButton(5)) {
+    } else if (joystick.getRawButton(6)) {
       motor5.set(-0.3);
       motor6.set(0.3);
     } else {
@@ -91,10 +91,12 @@ public class Robot extends TimedRobot {
 
     drive.arcadeDrive(turnSpeed, driveSpeed);
 
+    System.out.println(motorPos5);
+
     SmartDashboard.putNumber("turnSpeed", turnSpeed);
     SmartDashboard.putNumber("driveSpeed", driveSpeed);
-    SmartDashboard.putNumber("intakePos", motorPos5);
-    SmartDashboard.putNumber("intakeSpd", motorSpd5);
+    SmartDashboard.putNumber("motor5Pos", motorPos5);
+    SmartDashboard.putNumber("motor5Spd", motorSpd5);
     SmartDashboard.putNumber("motor6Pos", motorPos6);
     SmartDashboard.putNumber("motor6Spd", motorSpd6);
   }
