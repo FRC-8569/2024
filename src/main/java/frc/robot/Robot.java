@@ -78,6 +78,17 @@ public class Robot extends TimedRobot {
       motor6.set(0);
     }
 
+    if (joystick.getRawButton(4)) {
+      motor5.set(0.3);
+      motor6.set(-0.3);
+    } else if (joystick.getRawButton(5)) {
+      motor5.set(-0.3);
+      motor6.set(0.3);
+    } else {
+      motor5.set(0);
+      motor6.set(0);
+    }
+
     drive.arcadeDrive(turnSpeed, driveSpeed);
 
     SmartDashboard.putNumber("turnSpeed", turnSpeed);
