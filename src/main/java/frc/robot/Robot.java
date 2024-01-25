@@ -1,5 +1,5 @@
 //Libraries url
-//https://software-metadata.revrobotics.com/REVLib-2024.json
+//https://software-metadata.revrobotics.com/REVLib-2023.json
 //https://maven.ctr-electronics.com/release/com/ctre/phoenix/Phoenix5-frc2023-latest.json
 
 package frc.robot;
@@ -12,8 +12,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Robot extends TimedRobot {
   private CANSparkMax motor1;
@@ -22,15 +20,12 @@ public class Robot extends TimedRobot {
   private CANSparkMax motor4;
   private CANSparkMax motor5;
   private CANSparkMax motor6;
-  private CANSparkMax motor7;
   private RelativeEncoder encoder5;
   private RelativeEncoder encoder6;
-  private RelativeEncoder encoder7;
   private MotorControllerGroup right;
   private MotorControllerGroup left;
   private DifferentialDrive drive;
   private Joystick joystick;
-  private NetworkTable limelight = NetworkTableInstance.getDefault().getTable("limelight-front");
 
   @Override
   public void robotInit() {
@@ -38,22 +33,17 @@ public class Robot extends TimedRobot {
     motor2 = new CANSparkMax(2, MotorType.kBrushless);
     motor3 = new CANSparkMax(3, MotorType.kBrushless);
     motor4 = new CANSparkMax(4, MotorType.kBrushless);
-    motor5 = new CANSparkMax(5, MotorType.kBrushless);
-    motor6 = new CANSparkMax(6, MotorType.kBrushless);
-    motor7 = new CANSparkMax(7, MotorType.kBrushless);
+    motor5 = new CANSparkMax(5, MotorType.kBrushed);
+    motor6 = new CANSparkMax(3, MotorType.kBrushed);
 
     encoder5 = motor5.getEncoder();
     encoder6 = motor6.getEncoder();
-    encoder7 = motor7.getEncoder();
 
     motor5.restoreFactoryDefaults();
     encoder5.setPosition(0);
 
     motor6.restoreFactoryDefaults();
     encoder6.setPosition(0);
-
-    motor7.restoreFactoryDefaults();
-    encoder7.setPosition(0);
 
     left = new MotorControllerGroup(motor1, motor2);
     right = new MotorControllerGroup(motor3, motor4);
@@ -67,16 +57,10 @@ public class Robot extends TimedRobot {
     double turnSpeed = 0.3 * joystick.getRawAxis(0);
     double driveSpeed = 0.5 * joystick.getRawAxis(5);
 
-    double tx = limelight.getEntry("tx").getDouble(0.0);
-    double ty = limelight.getEntry("ty").getDouble(0.0);
-    double ta = limelight.getEntry("ta").getDouble(0.0);
-
     double motorPos5 = encoder5.getPosition();
     double motorSpd5 = encoder5.getVelocity();
     double motorPos6 = encoder6.getPosition();
     double motorSpd6 = encoder6.getVelocity();
-    double motorPos7 = encoder7.getPosition();
-    double motorSpd7 = encoder7.getVelocity();
 
     if (joystick.getRawButton(0)) {
       motor5.set(0.3);
@@ -94,14 +78,6 @@ public class Robot extends TimedRobot {
       motor6.set(0);
     }
 
-    if (joystick.getRawButton(4)) {
-      motor7.set(0.3);
-    } else if (joystick.getRawButton(5)) {
-      motor7.set(-0.3);
-    } else {
-      motor7.set(0);
-    }
-
     drive.arcadeDrive(turnSpeed, driveSpeed);
 
     SmartDashboard.putNumber("turnSpeed", turnSpeed);
@@ -110,10 +86,5 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("intakeSpd", motorSpd5);
     SmartDashboard.putNumber("motor6Pos", motorPos6);
     SmartDashboard.putNumber("motor6Spd", motorSpd6);
-    SmartDashboard.putNumber("motor7Pos", motorPos7);
-    SmartDashboard.putNumber("motor7Spd", motorSpd7);
-    SmartDashboard.putNumber("limelight-x", tx);
-    SmartDashboard.putNumber("limelight-y", ty);
-    SmartDashboard.putNumber("limelight-a", ta);
   }
 }
