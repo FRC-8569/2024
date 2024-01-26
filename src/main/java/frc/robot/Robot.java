@@ -14,6 +14,7 @@ import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot {
+  private CANSparkMax motor0;
   private CANSparkMax motor1;
   private CANSparkMax motor2;
   private CANSparkMax motor3;
@@ -29,6 +30,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
+    motor0 = new CANSparkMax(7, MotorType.kBrushless);
     motor1 = new CANSparkMax(1, MotorType.kBrushless);
     motor2 = new CANSparkMax(2, MotorType.kBrushless);
     motor3 = new CANSparkMax(3, MotorType.kBrushless);
@@ -62,20 +64,12 @@ public class Robot extends TimedRobot {
     double motorPos6 = encoder6.getPosition();
     double motorSpd6 = encoder6.getVelocity();
 
-    if (joystick.getRawButton(0)) {
-      motor5.set(0.3);
-    } else if (joystick.getRawButton(1)) {
-      motor5.set(-0.3);
+    if (joystick.getRawButton(1)) {
+      motor0.set(0.3);
+    } else if (joystick.getRawButton(2)) {
+      motor0.set(-0.3);
     } else {
-      motor5.set(0);
-    }
-
-    if (joystick.getRawButton(2)) {
-      motor6.set(0.3);
-    } else if (joystick.getRawButton(3)) {
-      motor6.set(-0.3);
-    } else {
-      motor6.set(0);
+      motor0.set(0);
     }
 
     if (joystick.getRawButton(5)) {
@@ -90,8 +84,6 @@ public class Robot extends TimedRobot {
     }
 
     drive.arcadeDrive(turnSpeed, driveSpeed);
-
-    System.out.println(motorPos5);
 
     SmartDashboard.putNumber("turnSpeed", turnSpeed);
     SmartDashboard.putNumber("driveSpeed", driveSpeed);
