@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot {
@@ -29,6 +30,7 @@ public class Robot extends TimedRobot {
   private MotorControllerGroup left;
   private DifferentialDrive drive;
   private Joystick joystick;
+  private double startTime;
 
   @Override
   public void robotInit() {
@@ -112,5 +114,16 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("motor5Spd", motorSpd5);
     SmartDashboard.putNumber("motor6Pos", motorPos6);
     SmartDashboard.putNumber("motor6Spd", motorSpd6);
+  }
+
+  @Override
+  public void autonomousInit() {
+    startTime = Timer.getFPGATimestamp();
+  }
+
+  @Override
+  public void autonomousPeriodic() {
+    double time = Timer.getFPGATimestamp();
+
   }
 }
